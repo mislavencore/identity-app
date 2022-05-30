@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+<p id="status"></p>
+
+@section Scripts{
+    
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '595354658498541',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v5.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+   function checkLoginState(){
+    FB.getLoginStatus(function(response) {
+        $("#status").html("<code>" + JSON.stringify(response, null, 2) + "</code>");
+    });
+   }
+</script>
+}
